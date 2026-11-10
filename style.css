@@ -1,0 +1,544 @@
+/* ==========================================================================
+   Un grain de Celte – feuille de styles
+   Mobile-first · aucune police externe · contrastes vérifiés (WCAG AA, la plupart AAA)
+   ========================================================================== */
+
+/* ---------- 1. Variables ---------- */
+:root {
+  /* Couleurs (ratio de contraste indiqué sur le fond de référence) */
+  --c-bg: #FBF8F2;          /* fond crème */
+  --c-surface: #FFFFFF;     /* cartes */
+  --c-alt: #EDF3EF;         /* fond de section alternée (vert très pâle) */
+  --c-text: #1C2420;        /* 14.98:1 sur --c-bg */
+  --c-muted: #4A5550;       /* 7.32:1 sur --c-bg, 6.90:1 sur --c-alt */
+  --c-primary: #1F4E3D;     /* vert irlandais profond – 8.94:1 sur --c-bg */
+  --c-on-primary: #FFFFFF;  /* 9.48:1 sur --c-primary */
+  --c-cream: #F3E9D7;       /* 7.88:1 sur --c-primary */
+  --c-accent: #8C3B12;      /* cuivre – 7.21:1 sur --c-bg, 7.64:1 sur blanc */
+  --c-border: #CBD5CF;      /* bordures décoratives uniquement */
+  --c-focus: #8C3B12;
+
+  /* Typographie : piles système (0 requête réseau) */
+  --f-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-title: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+
+  /* Échelle fluide */
+  --fs-base: 1.0625rem;                              /* 17 px */
+  --fs-small: 0.9375rem;
+  --fs-h3: 1.25rem;
+  --fs-h2: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);
+  --fs-h1: clamp(2.5rem, 1.8rem + 3.5vw, 4.25rem);
+
+  /* Espacements */
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+
+  --radius: 0.75rem;
+  --container: 70rem;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--f-title);
+  line-height: 1.2;
+  color: var(--c-primary);
+  margin: 0 0 var(--space-s);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); letter-spacing: -0.01em; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p {
+  margin: 0 0 var(--space-s);
+  max-width: 65ch;
+}
+
+a {
+  color: var(--c-primary);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--c-accent);
+  text-decoration-thickness: 0.14em;
+}
+
+/* Focus clavier visible et contrasté (RGAA 10.7) */
+:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Le <main> reçoit le focus via le lien d'évitement : pas de contour sur le bloc entier */
+main:focus {
+  outline: none;
+}
+
+ul[role="list"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Texte réservé aux lecteurs d'écran */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--container));
+  margin-inline: auto;
+}
+
+/* ---------- 3. Liens d'évitement ---------- */
+.skip-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skip-links a {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  font-weight: 700;
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.skip-links a:focus {
+  transform: none;
+}
+
+/* ---------- 4. En-tête ---------- */
+.site-header {
+  border-bottom: 1px solid var(--c-border);
+  background: var(--c-bg);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs) var(--space-m);
+  padding-block: var(--space-s);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--f-title);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
+.brand-mark {
+  color: var(--c-primary);
+  flex-shrink: 0;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding-block: 0.5rem;      /* zone cliquable ≥ 24 px (WCAG 2.5.8) */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.main-nav a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 5. Boutons ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--c-primary);
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+}
+
+.btn-primary:hover {
+  background: var(--c-text);
+  border-color: var(--c-text);
+  color: var(--c-on-primary);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--c-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* ---------- 6. Hero ---------- */
+.hero {
+  padding-block: var(--space-xl);
+  background:
+    radial-gradient(ellipse at 90% 0%, var(--c-alt) 0%, transparent 60%),
+    var(--c-bg);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-xs);
+  color: var(--c-accent);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lead {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  color: var(--c-muted);
+  max-width: 40em;
+}
+
+/* ---------- 7. Sections ---------- */
+.section {
+  padding-block: var(--space-xl);
+}
+
+.section-alt {
+  background: var(--c-alt);
+}
+
+.section-intro {
+  color: var(--c-muted);
+  margin-bottom: var(--space-l);
+}
+
+/* Cartes Irlande */
+.cards {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.card {
+  padding: var(--space-m);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-top: 4px solid var(--c-primary);
+  border-radius: var(--radius);
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Chiffres clés */
+.facts {
+  display: grid;
+  gap: var(--space-s);
+  margin: var(--space-l) 0 0;
+}
+
+.facts div {
+  padding-left: var(--space-s);
+  border-left: 3px solid var(--c-accent);
+}
+
+.facts dt {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--f-title);
+  font-size: 1.25rem;
+  color: var(--c-primary);
+}
+
+/* Épisodes */
+.episodes {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.episode article {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-m);
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--c-border);
+}
+
+.episode-meta {
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+.link-arrow {
+  margin-top: auto;
+  padding-block: 0.25rem;
+  font-weight: 700;
+}
+
+.link-arrow::after {
+  content: " →";
+}
+
+.platforms {
+  margin-top: var(--space-l);
+}
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.services {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.services li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+/* Puce décorative (le role="list" conserve la sémantique de liste) */
+.services li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--c-accent);
+}
+
+.contact-card {
+  align-self: start;
+  padding: var(--space-l) var(--space-m);
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  border-radius: var(--radius);
+}
+
+.contact-card h3 {
+  color: var(--c-cream);
+}
+
+.contact-card a:not(.btn) {
+  color: var(--c-on-primary);
+}
+
+.contact-card a:not(.btn):hover {
+  color: var(--c-cream);
+}
+
+/* Bouton inversé dans la carte verte */
+.contact-card .btn-primary {
+  background: var(--c-cream);
+  border-color: var(--c-cream);
+  color: var(--c-primary);
+}
+
+.contact-card .btn-primary:hover {
+  background: var(--c-on-primary);
+  border-color: var(--c-on-primary);
+}
+
+.contact-card :focus-visible {
+  outline-color: var(--c-cream);
+}
+
+.contact-alt {
+  margin: var(--space-s) 0 0;
+  font-size: var(--fs-small);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 8. Pied de page ---------- */
+.site-footer {
+  padding-block: var(--space-l);
+  background: var(--c-text);
+  color: var(--c-cream);       /* ≥ 12:1 */
+  font-size: var(--fs-small);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer a {
+  display: inline-block;
+  padding-block: 0.25rem;
+  color: var(--c-cream);
+}
+
+.site-footer a:hover {
+  color: var(--c-on-primary);
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--c-cream);
+}
+
+/* ---------- 9. Responsive (mobile-first) ---------- */
+@media (min-width: 40em) {
+  .facts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 48em) {
+  .cards,
+  .episodes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 60em) {
+  .contact-grid {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ---------- 10. Mode contraste forcé (Windows) ---------- */
+@media (forced-colors: active) {
+  .btn,
+  .card,
+  .episode article,
+  .contact-card {
+    border: 2px solid CanvasText;
+  }
+}
+
+/* ---------- 11. Impression ---------- */
+@media print {
+  .skip-links,
+  .main-nav,
+  .actions {
+    display: none;
+  }
+
+  body { background: #fff; color: #000; }
+  .section-alt, .contact-card { background: none; color: #000; }
+  .contact-card h3, .contact-card a { color: #000; }
+}
