@@ -1,544 +1,352 @@
 /* ==========================================================================
-   Un grain de Celte – feuille de styles
-   Mobile-first · aucune police externe · contrastes vérifiés (WCAG AA, la plupart AAA)
+   Un grain de Celte – feuille de styles (version vert d'action #84D100)
+   Mobile-first · une seule police téléchargée (Bebas Neue, titre H1)
+   Contrastes vérifiés : tous les textes ≥ 4,5:1, la plupart ≥ 7:1
    ========================================================================== */
 
-/* ---------- 1. Variables ---------- */
-:root {
-  /* Couleurs (ratio de contraste indiqué sur le fond de référence) */
-  --c-bg: #FBF8F2;          /* fond crème */
-  --c-surface: #FFFFFF;     /* cartes */
-  --c-alt: #EDF3EF;         /* fond de section alternée (vert très pâle) */
-  --c-text: #1C2420;        /* 14.98:1 sur --c-bg */
-  --c-muted: #4A5550;       /* 7.32:1 sur --c-bg, 6.90:1 sur --c-alt */
-  --c-primary: #1F4E3D;     /* vert irlandais profond – 8.94:1 sur --c-bg */
-  --c-on-primary: #FFFFFF;  /* 9.48:1 sur --c-primary */
-  --c-cream: #F3E9D7;       /* 7.88:1 sur --c-primary */
-  --c-accent: #8C3B12;      /* cuivre – 7.21:1 sur --c-bg, 7.64:1 sur blanc */
-  --c-border: #CBD5CF;      /* bordures décoratives uniquement */
-  --c-focus: #8C3B12;
+/* ---------- 1. Police auto-hébergée ---------- */
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("bebas-neue-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  /* Typographie : piles système (0 requête réseau) */
+/* ---------- 2. Variables ---------- */
+:root {
+  --c-black: #000000;
+  --c-night: #00301B;        /* vert du hero */
+  --c-deep: #001A0E;         /* vert quasi noir */
+  --c-action: #84D100;       /* vert d'action : 7,7:1 avec --c-night en texte */
+  --c-action-light: #B5E36A; /* petit titre du hero : 9,8:1 sur --c-night */
+  --c-white: #FFFFFF;
+  --c-text: #E2FEF2;
+  --c-text-soft: #B9FDE2;
+  --c-text-warm: #E2F5C8;
+  --c-line: rgba(226, 254, 242, 0.15);
+
   --f-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --f-title: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --f-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
 
-  /* Échelle fluide */
-  --fs-base: 1.0625rem;                              /* 17 px */
   --fs-small: 0.9375rem;
-  --fs-h3: 1.25rem;
-  --fs-h2: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);
-  --fs-h1: clamp(2.5rem, 1.8rem + 3.5vw, 4.25rem);
+  --fs-h2: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
 
-  /* Espacements */
-  --space-xs: 0.5rem;
   --space-s: 1rem;
   --space-m: 1.5rem;
   --space-l: 2.5rem;
-  --space-xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  --space-xl: clamp(4rem, 3rem + 4vw, 6rem);
 
-  --radius: 0.75rem;
-  --container: 70rem;
+  --radius: 1rem;
+  --container: 72.5rem;
 }
 
-/* ---------- 2. Base ---------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* ---------- 3. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 }
 
 body {
   margin: 0;
-  background: var(--c-bg);
+  background: var(--c-black);
   color: var(--c-text);
   font-family: var(--f-body);
-  font-size: var(--fs-base);
+  font-size: 1.0625rem;
   line-height: 1.65;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--f-title);
-  line-height: 1.2;
-  color: var(--c-primary);
-  margin: 0 0 var(--space-s);
-  text-wrap: balance;
-}
-
-h1 { font-size: var(--fs-h1); letter-spacing: -0.01em; }
+h1, h2, h3 { margin: 0 0 var(--space-s); line-height: 1.2; color: var(--c-white); text-wrap: balance; }
+h2, h3 { font-family: var(--f-title); }
 h2 { font-size: var(--fs-h2); }
-h3 { font-size: var(--fs-h3); }
+h3 { font-size: 1.3125rem; }
+p { margin: 0 0 var(--space-s); }
 
-p {
-  margin: 0 0 var(--space-s);
-  max-width: 65ch;
-}
+a { color: var(--c-text); text-underline-offset: 0.2em; }
+a:hover { color: var(--c-action); }
 
-a {
-  color: var(--c-primary);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.2em;
-}
+:focus-visible { outline: 3px solid var(--c-action); outline-offset: 3px; border-radius: 4px; }
+main:focus { outline: none; }
 
-a:hover {
-  color: var(--c-accent);
-  text-decoration-thickness: 0.14em;
-}
+img { display: block; max-width: 100%; height: auto; }
 
-/* Focus clavier visible et contrasté (RGAA 10.7) */
-:focus-visible {
-  outline: 3px solid var(--c-focus);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
+ul[role="list"], ol[role="list"] { list-style: none; margin: 0; padding: 0; }
 
-/* Le <main> reçoit le focus via le lien d'évitement : pas de contour sur le bloc entier */
-main:focus {
-  outline: none;
-}
-
-ul[role="list"] {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-img,
-svg,
-picture {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-/* Texte réservé aux lecteurs d'écran */
 .visually-hidden {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-.container {
-  width: min(100% - 2.5rem, var(--container));
-  margin-inline: auto;
-}
-
-/* ---------- 3. Liens d'évitement ---------- */
-.skip-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.skip-links a {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  z-index: 100;
-  padding: 0.75rem 1rem;
-  background: var(--c-primary);
-  color: var(--c-on-primary);
-  font-weight: 700;
-  border-radius: var(--radius);
-  transform: translateY(-200%);
-}
-
-.skip-links a:focus {
-  transform: none;
-}
-
-/* ---------- 4. En-tête ---------- */
-.site-header {
-  border-bottom: 1px solid var(--c-border);
-  background: var(--c-bg);
-}
-
-.header-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-xs) var(--space-m);
-  padding-block: var(--space-s);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-family: var(--f-title);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--c-primary);
-  text-decoration: none;
-}
-
-.brand-mark {
-  color: var(--c-primary);
-  flex-shrink: 0;
-}
-
-.main-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.main-nav a {
-  display: inline-block;
-  padding-block: 0.5rem;      /* zone cliquable ≥ 24 px (WCAG 2.5.8) */
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.main-nav a:hover {
-  text-decoration: underline;
-}
-
-/* ---------- 5. Boutons ---------- */
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s);
-  margin-top: var(--space-m);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3rem;
-  padding: 0.75rem 1.5rem;
-  border: 2px solid var(--c-primary);
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  text-align: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-primary {
-  background: var(--c-primary);
-  color: var(--c-on-primary);
-}
-
-.btn-primary:hover {
-  background: var(--c-text);
-  border-color: var(--c-text);
-  color: var(--c-on-primary);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--c-primary);
-}
-
-.btn-secondary:hover {
-  background: var(--c-primary);
-  color: var(--c-on-primary);
-}
-
-.btn-block {
-  width: 100%;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn { transition: none; }
-}
-
-/* ---------- 6. Hero ---------- */
-.hero {
-  padding-block: var(--space-xl);
-  background:
-    radial-gradient(ellipse at 90% 0%, var(--c-alt) 0%, transparent 60%),
-    var(--c-bg);
-}
+.container { width: min(100% - 2.5rem, var(--container)); margin-inline: auto; }
 
 .eyebrow {
-  margin-bottom: var(--space-xs);
-  color: var(--c-accent);
+  margin-bottom: 0.5rem;
+  color: var(--c-action);           /* 9,6:1 sur noir */
   font-size: var(--fs-small);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
+/* ---------- 4. Liens d'évitement ---------- */
+.skip-links { list-style: none; margin: 0; padding: 0; }
+.skip-links a {
+  position: absolute; top: 0.5rem; left: 0.5rem; z-index: 100;
+  padding: 0.75rem 1rem; border-radius: 0.5rem;
+  background: var(--c-action); color: var(--c-night); font-weight: 700;
+  transform: translateY(-200%);
+}
+.skip-links a:focus { transform: none; }
+
+/* ---------- 5. Boutons (jamais de retour à la ligne) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  width: fit-content; min-height: 3.25rem; padding: 0 1.75rem;
+  border: 2px solid transparent; border-radius: 999px;
+  font-weight: 700; text-decoration: none; white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.btn-primary { background: var(--c-action); color: var(--c-night); }
+.btn-primary:hover { background: var(--c-action-light); color: var(--c-night); }
+.btn-ghost {
+  border-color: var(--c-text);
+  background: rgba(0, 48, 27, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--c-text);
+}
+.btn-ghost:hover { background: var(--c-text); color: var(--c-night); }
+.btn-small { min-height: 2.75rem; padding: 0 1.25rem; }
+
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+/* ---------- 6. En-tête transparent, posé sur le hero ---------- */
+.site-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  border-bottom: 1px solid var(--c-line);
+}
+.header-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.5rem 1.5rem; padding-block: 1rem;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 0.625rem;
+  font-family: var(--f-title); font-size: 1.25rem; font-weight: 700;
+  color: var(--c-text); text-decoration: none;
+}
+.brand-mark { flex-shrink: 0; }
+.main-nav ul {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.main-nav a:not(.btn) {
+  display: inline-block; padding-block: 0.625rem;
+  font-weight: 600; text-decoration: none;
+}
+.main-nav a:not(.btn):hover { text-decoration: underline; }
+
+/* ---------- 7. Hero ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--c-night);
+  padding: 11rem 0 9rem;          /* mobile : laisse la place à l'en-tête replié */
+}
+.hero-media, .hero-media img {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%;
+}
+.hero-media img { object-fit: cover; object-position: 70% 30%; }
+
+/* Voile vert (mobile : vertical, la photo passe derrière le texte) */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 48, 27, 0.72) 0%, rgba(0, 48, 27, 0.62) 45%, rgba(0, 48, 27, 0.85) 100%);
+}
+/* Fondu du bas du hero vers le noir de la section suivante */
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 75%, #000000 100%);
+}
+
+.hero-text { max-width: 37.5rem; }
+.eyebrow-hero { color: var(--c-action-light); }
+.hero h1 {
+  margin-bottom: 1.25rem;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 1.5rem + 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
 .lead {
-  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
-  color: var(--c-muted);
-  max-width: 40em;
+  max-width: 34rem; margin-bottom: 1.75rem;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.3125rem);
+  color: var(--c-text);
+}
+.actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* ---------- 8. Lecteur ---------- */
+.player-wrap { position: relative; z-index: 1; margin-top: -4.5rem; }
+.player {
+  display: flex; align-items: center; gap: clamp(0.75rem, 2%, 1.5rem);
+  padding: 1rem clamp(1rem, 2%, 1.5rem) 1rem 1rem;
+  border: 1px solid var(--c-night);
+  border-radius: 1.25rem;
+  background: var(--c-black);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.45);
+}
+.player-cover {
+  flex-shrink: 0;
+  width: clamp(4rem, 12%, 7rem); aspect-ratio: 1 / 1; object-fit: cover;
+  border-radius: 0.875rem;
+}
+.player-body { flex: 1 1 auto; min-width: 0; }
+.player-meta {
+  margin: 0; color: var(--c-action);   /* 11,4:1 sur noir */
+  font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.player-title {
+  margin: 0.125rem 0 0.75rem;
+  font-size: clamp(1.1875rem, 1rem + 1vw, 1.5rem); line-height: 1.25;
+}
+.player-progress {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.8125rem; color: var(--c-text-warm);
+}
+.progress-track {
+  flex: 1 1 auto; height: 5px; border-radius: 3px; overflow: hidden;
+  background: rgba(226, 254, 242, 0.2);
+}
+.progress-fill { display: block; width: 0; height: 100%; background: var(--c-action); }
+.player-play {
+  flex-shrink: 0; display: grid; place-items: center;
+  width: 4rem; height: 4rem; border: 0; border-radius: 50%;
+  background: var(--c-action); color: var(--c-night);
+  cursor: not-allowed;
 }
 
-/* ---------- 7. Sections ---------- */
-.section {
-  padding-block: var(--space-xl);
-}
-
-.section-alt {
-  background: var(--c-alt);
-}
-
-.section-intro {
-  color: var(--c-muted);
-  margin-bottom: var(--space-l);
-}
-
-/* Cartes Irlande */
-.cards {
-  display: grid;
-  gap: var(--space-m);
-}
-
-.card {
-  padding: var(--space-m);
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-top: 4px solid var(--c-primary);
-  border-radius: var(--radius);
-}
-
-.card p:last-child {
-  margin-bottom: 0;
-}
-
-/* Chiffres clés */
-.facts {
-  display: grid;
-  gap: var(--space-s);
-  margin: var(--space-l) 0 0;
-}
-
-.facts div {
-  padding-left: var(--space-s);
-  border-left: 3px solid var(--c-accent);
-}
-
-.facts dt {
-  font-size: var(--fs-small);
-  font-weight: 700;
-  color: var(--c-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.facts dd {
-  margin: 0;
-  font-family: var(--f-title);
-  font-size: 1.25rem;
-  color: var(--c-primary);
-}
+/* ---------- 9. Sections ---------- */
+.section { padding-block: var(--space-xl); }
+.section-intro { color: var(--c-text-soft); }
 
 /* Épisodes */
-.episodes {
-  display: grid;
-  gap: var(--space-m);
+.section-episodes { padding-top: 4.5rem; background: var(--c-black); }
+.section-head {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 1rem; margin-bottom: var(--space-l);
 }
+.section-head h2 { margin: 0; }
+.section-head .section-intro { max-width: 26rem; margin: 0; }
 
-.episode article {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-m);
-  background: var(--c-surface);
+.episodes { display: grid; gap: 1rem; }
+.episode {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(226, 254, 242, 0.12);
   border-radius: var(--radius);
-  border: 1px solid var(--c-border);
+  background: rgba(226, 254, 242, 0.05);
+}
+.episode-num { flex-shrink: 0; width: 3rem; font-family: var(--f-title); font-size: 1.75rem; color: var(--c-action); }
+.episode-body { flex: 999 1 20rem; min-width: 0; }
+.episode-body h3 { margin: 0.125rem 0 0.25rem; }
+.episode-body p:last-child { margin: 0; color: var(--c-text-soft); }
+.episode-cat {
+  margin: 0; color: var(--c-action);
+  font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tag {
+  flex-shrink: 0; padding: 0.25rem 0.75rem;
+  border: 1px solid var(--c-action); border-radius: 999px;
+  font-size: 0.875rem; font-weight: 700; color: var(--c-action); white-space: nowrap;
 }
 
-.episode-meta {
-  margin-bottom: var(--space-xs);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  color: var(--c-accent);
+/* L'hôtesse : paysage en fond */
+.section-irlande { position: relative; isolation: isolate; overflow: hidden; background: var(--c-deep); color: var(--c-text-warm); }
+.section-bg, .section-bg img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; }
+.section-bg img { object-fit: cover; object-position: center 60%; }
+/* Voile : jamais sous 0,72 pour garder ≥ 5:1 même sur le ciel clair */
+.section-irlande::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 26, 14, 0.78) 0%, rgba(0, 26, 14, 0.88) 100%);
 }
-
-.link-arrow {
-  margin-top: auto;
-  padding-block: 0.25rem;
-  font-weight: 700;
+.irlande-inner > p:not(.eyebrow) { max-width: 60ch; }
+.facts { display: grid; gap: 1rem; margin: 2rem 0 0; }
+.facts div {
+  padding: 1rem; border-radius: 0.75rem;
+  border: 1px solid rgba(132, 209, 0, 0.35);
+  background: rgba(0, 26, 14, 0.72);
 }
+.facts dt { font-size: 0.875rem; font-weight: 700; color: var(--c-action); text-transform: uppercase; letter-spacing: 0.06em; }
+.facts dd { margin: 0.25rem 0 0; font-family: var(--f-title); font-size: 1.1875rem; color: var(--c-white); }
 
-.link-arrow::after {
-  content: " →";
+/* Collaborations */
+.section-contact {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(132, 209, 0, 0.15) 0%, rgba(132, 209, 0, 0) 55%),
+    linear-gradient(180deg, var(--c-night) 0%, var(--c-deep) 100%);
+  color: var(--c-text-warm);
 }
-
-.platforms {
-  margin-top: var(--space-l);
-}
-
-/* Contact */
-.contact-grid {
-  display: grid;
-  gap: var(--space-l);
-}
-
-.services {
-  display: grid;
-  gap: var(--space-xs);
-}
-
+.section-contact .section-intro { color: var(--c-text-warm); max-width: 60ch; }
+.contact-grid { display: grid; gap: var(--space-l); }
+.services { display: grid; gap: 0.75rem; }
 .services li {
-  position: relative;
-  padding-left: 1.75rem;
+  padding: 1rem; border-radius: 0.75rem;
+  border: 1px solid rgba(226, 245, 200, 0.18);
+  background: rgba(226, 245, 200, 0.06);
+  font-weight: 600; color: var(--c-white);
 }
-
-/* Puce décorative (le role="list" conserve la sémantique de liste) */
-.services li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  border: 2px solid var(--c-accent);
-}
-
 .contact-card {
   align-self: start;
-  padding: var(--space-l) var(--space-m);
-  background: var(--c-primary);
-  color: var(--c-on-primary);
-  border-radius: var(--radius);
+  padding: 2.5rem 1.75rem;
+  border: 1px solid rgba(132, 209, 0, 0.45);
+  border-radius: 1.25rem;
+  background: rgba(0, 26, 14, 0.75);
 }
+.contact-card h3 { font-size: 1.5rem; }
+.contact-card > p { color: var(--c-text-soft); }
+.contact-alt { margin: 1rem 0 0; font-size: var(--fs-small); overflow-wrap: anywhere; }
 
-.contact-card h3 {
-  color: var(--c-cream);
-}
+/* ---------- 10. Pied de page ---------- */
+.site-footer { padding-block: 2.5rem; background: var(--c-night); font-size: var(--fs-small); }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.footer-inner p { margin: 0; }
+.footer-inner a { display: inline-block; padding-block: 0.25rem; }
 
-.contact-card a:not(.btn) {
-  color: var(--c-on-primary);
-}
-
-.contact-card a:not(.btn):hover {
-  color: var(--c-cream);
-}
-
-/* Bouton inversé dans la carte verte */
-.contact-card .btn-primary {
-  background: var(--c-cream);
-  border-color: var(--c-cream);
-  color: var(--c-primary);
-}
-
-.contact-card .btn-primary:hover {
-  background: var(--c-on-primary);
-  border-color: var(--c-on-primary);
-}
-
-.contact-card :focus-visible {
-  outline-color: var(--c-cream);
-}
-
-.contact-alt {
-  margin: var(--space-s) 0 0;
-  font-size: var(--fs-small);
-  overflow-wrap: anywhere;
-}
-
-/* ---------- 8. Pied de page ---------- */
-.site-footer {
-  padding-block: var(--space-l);
-  background: var(--c-text);
-  color: var(--c-cream);       /* ≥ 12:1 */
-  font-size: var(--fs-small);
-}
-
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-s);
-}
-
-.footer-inner p {
-  margin: 0;
-}
-
-.site-footer ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.site-footer a {
-  display: inline-block;
-  padding-block: 0.25rem;
-  color: var(--c-cream);
-}
-
-.site-footer a:hover {
-  color: var(--c-on-primary);
-}
-
-.site-footer :focus-visible {
-  outline-color: var(--c-cream);
-}
-
-/* ---------- 9. Responsive (mobile-first) ---------- */
+/* ---------- 11. Responsive ---------- */
 @media (min-width: 40em) {
-  .facts {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 48em) {
-  .cards,
-  .episodes {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .facts { grid-template-columns: repeat(3, 1fr); }
+  .services { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 60em) {
-  .contact-grid {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: start;
+  .hero { min-height: 40rem; padding: 11.5rem 0 9.5rem; }
+  .hero-media img { object-position: right center; }
+  /* Desktop : voile horizontal dense sous le texte, quasi nul sur le visage */
+  .hero::before {
+    background: linear-gradient(90deg, rgba(0, 48, 27, 0.95) 0%, rgba(0, 48, 27, 0.8) 40%, rgba(0, 48, 27, 0.1) 58%, rgba(0, 48, 27, 0) 100%);
   }
+  .section-irlande::before {
+    background: linear-gradient(90deg, rgba(0, 26, 14, 0.72) 0%, rgba(0, 26, 14, 0.82) 45%, rgba(0, 26, 14, 0.9) 100%);
+  }
+  .irlande-inner { padding-left: 40%; }
+  .contact-grid { grid-template-columns: 1.4fr 1fr; align-items: start; }
 }
 
-/* ---------- 10. Mode contraste forcé (Windows) ---------- */
+/* ---------- 12. Contraste forcé (Windows) ---------- */
 @media (forced-colors: active) {
-  .btn,
-  .card,
-  .episode article,
-  .contact-card {
-    border: 2px solid CanvasText;
-  }
+  .btn, .player, .episode, .contact-card, .services li, .facts div { border: 2px solid CanvasText; }
+  .hero::before, .hero::after, .section-irlande::before { display: none; }
 }
 
-/* ---------- 11. Impression ---------- */
+/* ---------- 13. Impression ---------- */
 @media print {
-  .skip-links,
-  .main-nav,
-  .actions {
-    display: none;
-  }
-
-  body { background: #fff; color: #000; }
-  .section-alt, .contact-card { background: none; color: #000; }
-  .contact-card h3, .contact-card a { color: #000; }
+  .skip-links, .site-header, .actions, .player-wrap, .hero-media, .section-bg { display: none; }
+  body, .hero, .section, .site-footer { background: #fff !important; color: #000 !important; }
+  h1, h2, h3, .eyebrow, .episode-cat, .tag, .episode-num { color: #000 !important; }
 }
